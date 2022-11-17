@@ -44,7 +44,8 @@ screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 
 rect = Rectangle(Point(15, 15), 100, 100)
-
+cirlce = Circle(Point(400, 400), 100)
+triangle = Triangle(Point(10, 10), Point(100, 100), Point(45, 100))
 is_running = True
 while is_running:
     clock.tick(60)
@@ -61,10 +62,13 @@ while is_running:
 
     #отрисовать новый мир
     pygame.draw.rect(screen, (127, 127, 127), (rect.point.x, rect.point.y, rect.height, rect.width))
-    # нужно нагуглить как выводить треугольник и круг
-    # создать git репозиторий, прикрепить туда ваш код и скринщот работы вашей программы
-    # и подумать, все ли тут нормально, вас ничего не смущает?
+    #шабон для вывода прямугольника на экран
 
+    pygame.draw.circle(screen, (14, 15, 111), (cirlce.p.x, cirlce.p.y), cirlce.radius)
+    #шаблон для вывода круга на экран
+
+    pygame.draw.polygon(screen, (155, 155, 12), [(triangle.p1.x, triangle.p1.y), (triangle.p2.x, triangle.p2.y), (triangle.p3.x, triangle.p3.y)])
+    #шаблон для вывода треугольника на экран
 
     # screen.fill((127,127, 14))
 

@@ -8,9 +8,9 @@ FPS = 60
 pg.init()
 
 def update_position():
-    return randint(100, 1600), randint(100, 620)
+    return randint(100, 1180), randint(100, 620)
     
-x, y, r = randint(100, 1600), randint(100, 620), randint(10, 100)
+x, y, r = randint(100, 1180), randint(100, 620), randint(10, 100)
 color = (randint(100, 255), 0, 0)
 
 screen = pg.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGTH))
@@ -35,7 +35,6 @@ while is_running:
     # обработка состояния игры
     if is_circle_change:
         x, y = update_position()
-        
 
     # отрисовка
     screen.fill((0, 155, 0))

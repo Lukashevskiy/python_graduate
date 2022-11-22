@@ -35,7 +35,8 @@ while is_running:
     # обработка состояния игры
     if is_circle_change:
         x, y = update_position()
-
+        is_circle_change = False
+        
     # отрисовка
     screen.fill((0, 155, 0))
     pg.draw.circle(screen, color, (x, y), r)

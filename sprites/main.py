@@ -15,9 +15,14 @@ class Circle(pg.sprite.Sprite):
         x = randint(100, 1180)
         y = randint(100, 610)
 
-        self.dx = randint(-3, 3)
-        self.dy = randint(-3, 3)
-        
+        self.velocity = 0
+        while (self.velocity == 0):
+            self.velocity = randint(-3, 3) 
+
+        self.direction = pg.Vector2(1, 1).rotate(self.velocity)
+
+        self.position = pg.Vector2(x, y)
+
         self.radius = randint(10, 20)
         
         self.color = (randint(100, 255), 0, 0) 
@@ -28,19 +33,36 @@ class Circle(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
 
+
+    def recolize(self):
+        self.color = (randint(100, 255), randint(100, 255), randint(100, 255)) 
+        self.image.fill(self.color)
+
     def update(self, rect):
-        self.rect.move_ip(self.dx, self.dy)
+        self.position += (self.direction * self.velocity)
+        self.rect.center = self.position
+
         self.check_collision(rect)
 
     def check_collision(self, other):
-        x, y = self.rect.center
-        if x + self.radius >= other.right or x - self.radius <= other.left:
-            self.dx *= -1
-        if y + self.radius >= other.bottom or y - self.radius <= other.top:
-            self.dy *= -1 
+        x, y = self.position
+        flag = False
+        if (x + self.radius >= other.right):
+            refl = (1, 0)
+            flag = True
+        elif (x - self.radius <= other.left):
+            refl = (-1, 0)
+            flag = True
+        elif (y + self.radius >= other.bottom):
+            refl = (0, 1)
+            flag = True
+        elif (y - self.radius <= other.top):  
+            refl = (0, -1)
+            flag = True
+            
+        if flag:
+            self.direction.reflect_ip(pg.Vector2(refl))
 
-    def draw(self, screen):
-        pg.draw.circle(screen, self.color, (self.x, self.y), self.radius)
 
 
 
@@ -52,7 +74,7 @@ screen_rect = screen.get_rect()
 clock = pg.time.Clock()
 
 # circles = [Circle() for _ in range(10000)]
-circles = pg.sprite.Group([Circle() for _ in range(10000)])
+circles = pg.sprite.Group([Circle() for _ in range(1000)])
 is_running = True
 
 is_circle_change = False
